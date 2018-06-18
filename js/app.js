@@ -13,7 +13,7 @@ var nasConfig = {
   },
   testnet: {
       chainID:'1001',
-      contractAddress: "n1pC3472wgGeynXTYt9CRXNZVZ3vCfA6TNE",
+      contractAddress: "n1ez7YB3RxQiZn2mkmU83gQudmSi95ZPhZp",
       host: "https://testnet.nebulas.io",
       payHost: "https://pay.nebulas.io/api/pay"
   }
@@ -41,34 +41,34 @@ var intervalQuery;  //定时查询交易结果
 
 
 
-function getPerson() {
-  var from = Account.NewAccount().getAddressString();
-  var value = "0";
-  var callFunction = "getPerson";
-  var phoneNo = "0001";
-  var callArgs = "[\""  + phoneNo + "\"]"
-  var contract = {
-    "function" : callFunction,
-    "args" : callArgs,
-  }
+// function getPerson() {
+//   var from = Account.NewAccount().getAddressString();
+//   var value = "0";
+//   var callFunction = "getPerson";
+//   var phoneNo = "0001";
+//   var callArgs = "[\""  + phoneNo + "\"]"
+//   var contract = {
+//     "function" : callFunction,
+//     "args" : callArgs,
+//   }
 
-  neb.api.call(from, dappAddress, value, nonce, gas_price, gas_limit, contract).then(function(resp) {
-    // cbSearch(resp);
-    console.log("resp = " + resp);
-  }) .catch(function(err) {
-    alert("购买成功,购买单号读取失败,请在'我的'模块中重新读取");
-  })
-}
+//   neb.api.call(from, dappAddress, value, nonce, gas_price, gas_limit, contract).then(function(resp) {
+//     // cbSearch(resp);
+//     console.log("resp = " + resp);
+//   }) .catch(function(err) {
+//     alert("购买成功,购买单号读取失败,请在'我的'模块中重新读取");
+//   })
+// }
 
-
+var limit = 10;
+var offset = 0;
 function getInfos() {
 
   $("#load_loading").show();
   var from = Account.NewAccount().getAddressString();
   var value = "0";
   var callFunction = "getInfos";
-  var limit = "10";
-  var offset = "0";
+  
   var callArgs = "[\"" + limit + "\",\"" + offset + "\"]"
   var contract = {
     "function" : callFunction,
@@ -78,6 +78,7 @@ function getInfos() {
   neb.api.call(from, dappAddress, value, nonce, gas_price, gas_limit, contract).then(function(resp) {
     cbSearch(resp);
     $("#load_loading").hide();
+
   }) .catch(function(err) {
     alert("失败");
     $("#load_loading").hide();
@@ -92,7 +93,7 @@ function cbSearch(resp) {
 
   if (resultStringify.search("Error") !== -1) {
     
-    alert("购买成功,购买单号读取失败,请在'我的'模块中重新读取");
+    alert("全部加载完毕");
   }
   //  else if (resultStringify.search("null") !== -1) {
   //   alert("购买成功,购买单号读取失败,请在'我的'模块中重新读取");
@@ -105,15 +106,24 @@ function cbSearch(resp) {
 
     var html = $(".all-status").html();
 
+    if (result.length > 0) {
+      offset += 10; 
+      console.log("offset = " + offset);
+    } else {
+      alert("最后一页");
+      return;
+    }
+
     for (var i = 0; i < result.length; i++) {
       var obj = result[i];
+      var name = obj["name"];
       var content = obj["content"];
       var title = content["title"];
       var value = content["value"];
 
-      html += '<div class="row"> <div class="row clearfix"> <div class="col-md-4 column"> <img src="img/jianghu2.jpg" width="60" height="60" /> </div> </div> <strong style="margin-top: 15px">Rick</strong></div>  <div class="row clearfix"> <div class="col-md-12 column"> <strong>' + title + '</strong> <p>'+ value +'</p> </div> </div> </div> <hr>';
+      html += '<div class="row"> <div class="row clearfix"> <div class="col-md-4 column"> <img src="img/jianghu2.jpg" width="60" height="60" /> </div> </div> <strong style="margin-top: 15px">'+ name +'</strong></div>  <div class="row clearfix"> <div class="col-md-12 column"> <strong>' + title + '</strong> <p>'+ value +'</p> </div> </div> </div> <hr>';
 
-      // console.log("obj = " + title);
+      // console.log("name = " + name);
     }
 
     $('.all-status').html(html);
