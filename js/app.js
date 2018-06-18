@@ -146,15 +146,15 @@ var browser = {
 window.addEventListener('load', function () {
   console.log("ddd");
 
-
-  isMobile=browser.versions.mobile;
-  console.log("isMobile"+isMobile);
-  if(typeof(webExtensionWallet) === "undefined"&&!isMobile){
-
-  }else{
-    console.log("start");
-    getInfos();
-  }
+  getInfos();
+  // isMobile=browser.versions.mobile;
+  // console.log("isMobile"+isMobile);
+  // if(typeof(webExtensionWallet) === "undefined"&&!isMobile){
+  //   getInfos();
+  // }else{
+  //   console.log("start");
+  //   getInfos();
+  // }
 });
 
 
