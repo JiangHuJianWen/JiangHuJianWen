@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>江湖见闻</title>
+    <title>我的见闻</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -22,10 +22,14 @@
 
     <!-- Page Content -->
     <div class="container" >
-      <div class="all-status">
+
+      <input type="text" class="form-control" id="minePhoneNo" placeholder="输入手机号码获取见闻" />
+      <br>
+
+      <div class="all-status-mystories">
       </div>
 
-    <div align="center"  id="load_loading" style="display: none;">
+    <div align="center"  id="load_mystory_loading" style="display: none;">
     <div class="sk-circle">
     <div class="sk-circle1 sk-child"></div>
     <div class="sk-circle2 sk-child"></div>
@@ -46,7 +50,7 @@
 
     <div class="row clearfix">
       <div class="col-md-12 column">
-         <button type="button" class="btn btn-default btn-block btn-primary" onclick="getInfos()">加载更多</button>
+         <button type="button" class="btn btn-default btn-block btn-primary" onclick="getMyStory()">获取见闻</button>
       </div>
     </div>
 
@@ -61,13 +65,6 @@
     <script src="./dist/nebulas.js"></script>
     <script src="./dist/nebPay.js"></script>
     <script src="./js/app.js"></script>
-
-    <script type="text/javascript">
-      window.addEventListener('load', function () {
-        getInfos();
-
-      });
-    </script>
 
       <style type="text/css">
 
@@ -186,9 +183,6 @@
         -webkit-transform: scale(1);
                 transform: scale(1); } }
       </style>
-
-
-
 
   </body>
 

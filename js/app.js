@@ -130,6 +130,75 @@ function cbSearch(resp) {
   }
 }
 
+function getMyStory() {
+  $("#load_mystory_loading").show();
+  var from = Account.NewAccount().getAddressString();
+  var value = "0";
+  var callFunction = "getMyStory";
+  var phoneNo = document.getElementById("minePhoneNo").value;
+  var callArgs = "[\"" + phoneNo + "\"]"
+  var contract = {
+    "function" : callFunction,
+    "args" : callArgs,
+  }
+
+  neb.api.call(from, dappAddress, value, nonce, gas_price, gas_limit, contract).then(function(resp) {
+    cbmyStorySearch(resp); 
+    $("#load_mystory_loading").hide();
+
+  }) .catch(function(err) {
+    alert("失败ddd");
+    $("#load_mystory_loading").hide();
+  })
+}
+
+//return of search,
+function cbmyStorySearch(resp) {
+  var result = resp.result;
+  console.log("return of rpc call: " + JSON.stringify(result));
+  var resultStringify = JSON.stringify(result);
+
+  if (resultStringify.search("Error") !== -1) {
+    
+    alert("全部加载完毕");
+  }
+  //  else if (resultStringify.search("null") !== -1) {
+  //   alert("购买成功,购买单号读取失败,请在'我的'模块中重新读取");
+  // }
+   else {  //搜索成功
+    result = JSON.parse(resultStringify);
+    result = JSON.parse(result);
+    // result = JSON.parse(result);
+    console.log("result = " + result);
+
+    var html = $(".all-status-mystories").html();
+
+    for (var i = 0; i < result.length; i++) {
+      var obj = result[i];
+      var title = obj["title"];
+      var value = obj["value"];
+       html += '<div class="row"> <div class="row clearfix"> <div class="col-md-12 column"> <strong>' + title + '</strong> <p>'+ value +'</p> </div> </div> </div> <hr>';
+   
+      }
+
+
+
+
+    // for (var i = 0; i < result.length; i++) {
+    //   var obj = result[i];
+    //   var name = obj["name"];
+    //   var content = obj["content"];
+    //   var title = content["title"];
+    //   var value = content["value"];
+    //   console.log("name = " + name);
+    //   html += '<div class="row"> <div class="row clearfix"> <div class="col-md-4 column"> <img src="img/jianghu2.jpg" width="60" height="60" /> </div> </div> <strong style="margin-top: 15px">'+ name +'</strong></div>  <div class="row clearfix"> <div class="col-md-12 column"> <strong>' + title + '</strong> <p>'+ value +'</p> </div> </div> </div> <hr>';
+    // }
+
+    $('.all-status-mystories').html(html);
+  }
+}
+
+
 // var isMobile;
 var browser = {
   versions: function() {
@@ -152,21 +221,6 @@ var browser = {
   }(),
   language: (navigator.browserLanguage || navigator.language).toLowerCase()
 }
-
-window.addEventListener('load', function () {
-  console.log("ddd");
-
-  getInfos();
-  // isMobile=browser.versions.mobile;
-  // console.log("isMobile"+isMobile);
-  // if(typeof(webExtensionWallet) === "undefined"&&!isMobile){
-  //   getInfos();
-  // }else{
-  //   console.log("start");
-  //   getInfos();
-  // }
-});
-
 
 
 
