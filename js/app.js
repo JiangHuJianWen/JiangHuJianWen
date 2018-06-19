@@ -7,7 +7,7 @@ var nebulas = require("nebulas"),
 var nasConfig = {
   mainnet: {
       chainID:'1',
-      contractAddress: "n1pJVYCVACc2Pzo21db2KGSTbKQgsVmqjd6",
+      contractAddress: "n1jWgiSNrm8Qh7JPdTxLDNLv9Uegvdn47PB",
       host: "https://mainnet.nebulas.io",
       payHost: "https://pay.nebulas.io/api/mainnet/pay"
   },
@@ -19,8 +19,8 @@ var nasConfig = {
   }
 }
 var neb = new Neb();
-// var chainInfo=nasConfig.mainnet;
-var chainInfo=nasConfig.testnet;
+var chainInfo=nasConfig.mainnet;
+// var chainInfo=nasConfig.testnet;
 
 neb.setRequest(new HttpRequest(chainInfo.host));
 var nasApi = neb.api;
@@ -34,8 +34,8 @@ var nonce = "0";
 var gas_price = "1000000";
 var gas_limit = "2000000";
 
-// var callbackUrl = NebPay.config.mainnetUrl; //在主网查询(默认值)
-var callbackUrl = NebPay.config.testnetUrl; //在测试网查询
+var callbackUrl = NebPay.config.mainnetUrl; //在主网查询(默认值)
+// var callbackUrl = NebPay.config.testnetUrl; //在测试网查询
 var serialNumber;
 var intervalQuery;  //定时查询交易结果  
 
