@@ -177,23 +177,8 @@ function cbmyStorySearch(resp) {
       var obj = result[i];
       var title = obj["title"];
       var value = obj["value"];
-       html += '<div class="row"> <div class="row clearfix"> <div class="col-md-12 column"> <strong>' + title + '</strong> <p>'+ value +'</p> </div> </div> </div> <hr>';
-   
+      html += '<div class="row clearfix"> <div class="col-md-12 column"> <strong>' + title + '</strong> <p>'+ value +'</p> </div> </div> </div> <hr>';
       }
-
-
-
-
-    // for (var i = 0; i < result.length; i++) {
-    //   var obj = result[i];
-    //   var name = obj["name"];
-    //   var content = obj["content"];
-    //   var title = content["title"];
-    //   var value = content["value"];
-    //   console.log("name = " + name);
-    //   html += '<div class="row"> <div class="row clearfix"> <div class="col-md-4 column"> <img src="img/jianghu2.jpg" width="60" height="60" /> </div> </div> <strong style="margin-top: 15px">'+ name +'</strong></div>  <div class="row clearfix"> <div class="col-md-12 column"> <strong>' + title + '</strong> <p>'+ value +'</p> </div> </div> </div> <hr>';
-    // }
-
     $('.all-status-mystories').html(html);
   }
 }
