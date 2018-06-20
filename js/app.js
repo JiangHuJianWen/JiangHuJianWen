@@ -172,7 +172,7 @@ function cbmyStorySearch(resp) {
     console.log("result = " + result);
 
     var html = $(".all-status-mystories").html();
-
+    html = '';
     for (var i = 0; i < result.length; i++) {
       var obj = result[i];
       var title = obj["title"];
